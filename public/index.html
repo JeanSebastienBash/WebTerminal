@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal</title>
+    <link rel="stylesheet" href="lib/xterm.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #000; width: 100vw; height: 100vh; overflow: hidden; }
+        #terminal { width: 100%; height: 100%; }
+        .xterm { height: 100%; }
+        .xterm-viewport { background: #000 !important; }
+    </style>
+</head>
+<body>
+    <div id="terminal"></div>
+
+    <script src="lib/xterm.js"></script>
+    <script src="lib/xterm-addon-fit.js"></script>
+    <script src="lib/xterm-addon-web-links.js"></script>
+    
+    <script>
+        const term = new Terminal({
+            cursorBlink: true,
+            theme: {
+                background: '#0c0c0c',
+                foreground: '#cccccc',
+                cursor: '#ffffff',
+                selectionBackground: '#444444',
+                black: '#0c0c0c',
+                red: '#c50f1f',
+                green: '#13a10e',
+                yellow: '#c19c00',
+                blue: '#0037da',
+                magenta: '#881798',
+                cyan: '#3a96dd',
+                white: '#cccccc',
+                brightBlack: '#767676',
+                brightRed: '#e74856',
+                brightGreen: '#16c60c',
+                brightYellow: '#f9f1a5',
+                brightBlue: '#3b78ff',
+                brightMagenta: '#b4009e',
+                brightCyan: '#61d6d6',
+                brightWhite: '#f2f2f2'
+            },
+            fontSize: 15,
+            fontFamily: '"Cascadia Code", "Fira Code", Menlo, Monaco, "Courier New", monospace',
+            scrollback: 10000
+        });
+
+        const fitAddon = new FitAddon.FitAddon();
+        term.loadAddon(fitAddon);
+        term.loadAddon(new WebLinksAddon.WebLinksAddon());
+        term.open(document.getElementById('terminal'));
+        fitAddon.fit();
+
+        const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const wsUrl = wsProtocol + '//' + location.host;
+
+        const ws = new WebSocket(wsUrl);
+
+        ws.onopen = function() {
+            ws.send(JSON.stringify({ type: 'resize', cols: term.cols, rows: term.rows }));
+        };
+
+        ws.onmessage = function(event) {
+            term.write(event.data);
+        };
+
+        ws.onclose = function() {
+            term.writeln('\r\n\x1b[31mConnexion fermee\x1b[0m');
+        };
+
+        ws.onerror = function() {
+            term.writeln('\r\n\x1b[31mErreur de connexion\x1b[0m');
+        };
+
+        term.onData(function(data) {
+            if (ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ type: 'input', data: data }));
+            }
+        });
+
+        window.addEventListener('resize', function() {
+            fitAddon.fit();
+            if (ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ type: 'resize', cols: term.cols, rows: term.rows }));
+            }
+        });
+
+        term.focus();
+    </script>
+</body>
+</html>
