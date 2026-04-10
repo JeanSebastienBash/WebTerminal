@@ -55,6 +55,18 @@ npm start
 
 Open your browser to `http://localhost:3000`
 
+### Stopping the Server
+
+To stop the server and release resources:
+
+```bash
+# If running with npm start / npm run dev
+Ctrl+C
+
+# Or force kill if needed
+pkill -f "node.*server"
+```
+
 ## How It Works
 
 1. Browser connects via WebSocket
