@@ -1,4 +1,4 @@
-# Ghost Terminal
+# Web Terminal
 
 ![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
@@ -18,8 +18,8 @@ A real Linux terminal in your browser. Full bash profile, aliases, and environme
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/ghost-terminal.git
-cd ghost-terminal
+git clone https://github.com/JeanSebastienBash/WebTerminal.git
+cd WebTerminal
 npm install
 ```
 
@@ -91,7 +91,7 @@ pkill -f "node.*server"
 ## Project Structure
 
 ```
-ghost-terminal/
+WebTerminal/
 ├── src/
 │   └── server.js          # Express + WebSocket server
 ├── public/
@@ -107,3 +107,7 @@ ghost-terminal/
 ## License
 
 MIT License — see [LICENSE](LICENSE) file
+
+---
+
+Made by DreamprojectAI

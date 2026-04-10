@@ -81,6 +81,6 @@ wss.on('connection', (ws) => {
 });
 
 server.listen(PORT, () => {
-    console.log('Ghost Terminal running on http://localhost:' + PORT);
+    console.log('Web Terminal running on http://localhost:' + PORT);
     console.log('Masked identity: ' + FAKE_USERNAME + '@' + FAKE_HOSTNAME);
 });

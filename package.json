@@ -1,11 +1,11 @@
 {
-  "name": "ghost-terminal",
+  "name": "webterminal",
   "version": "1.0.0",
-  "description": "Real terminal in your browser — full bash profile, aliases, env loaded. Hostname and username masked for screencasts and demos.",
+  "description": "Real Linux terminal in your browser — full bash profile, aliases, and environment variables loaded. Hostname and username masked for screencasts and demos.",
   "keywords": [
     "terminal",
     "xterm",
-    "web-terminal",
+    "webterminal",
     "browser-terminal",
     "pty",
     "bash",
@@ -13,11 +13,15 @@
     "privacy"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "DreamprojectAI",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/JeanSebastienBash/WebTerminal.git"
   },
+  "bugs": {
+    "url": "https://github.com/JeanSebastienBash/WebTerminal/issues"
+  },
+  "homepage": "https://github.com/JeanSebastienBash/WebTerminal",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
